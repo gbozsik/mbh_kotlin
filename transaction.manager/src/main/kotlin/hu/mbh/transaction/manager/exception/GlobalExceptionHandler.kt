@@ -13,7 +13,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
 
     @ExceptionHandler(value = [BusinessException::class])
     protected fun handleBusinessException(businessException: BusinessException): ResponseEntity<ApiError> =
-            ResponseEntity(ApiError(HttpStatus.BAD_REQUEST, businessException.errorCode, LocalDateTime.now()), HttpStatus.BAD_REQUEST)
+            ResponseEntity(ApiError(businessException.httpStatus, businessException.errorCode, LocalDateTime.now()), businessException.httpStatus)
 
     @ExceptionHandler(value = [IllegalArgumentException::class])
     protected fun handleIllegalArgumentException(illegalArgumentException: IllegalArgumentException): ResponseEntity<ApiError> {

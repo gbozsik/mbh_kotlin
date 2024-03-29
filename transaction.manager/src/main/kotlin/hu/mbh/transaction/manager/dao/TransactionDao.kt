@@ -1,7 +1,10 @@
 package hu.mbh.transaction.manager.dao
 
 import hu.mbh.transaction.manager.exception.BusinessException
-import hu.mbh.transaction.manager.model.*
+import hu.mbh.transaction.manager.model.CreateTransactionRequest
+import hu.mbh.transaction.manager.model.ErrorCode
+import hu.mbh.transaction.manager.model.TransactionModel
+import hu.mbh.transaction.manager.model.TransactionType
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.stereotype.Component

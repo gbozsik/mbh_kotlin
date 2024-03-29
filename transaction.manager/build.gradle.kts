@@ -11,6 +11,7 @@ group = "hu.mbh"
 version = "0.0.1-SNAPSHOT"
 
 val coroutinesVersion = "1.8.0"
+val swaggerVersion = "2.4.0"
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_21
@@ -26,6 +27,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${coroutinesVersion}")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:${coroutinesVersion}")
+	implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:${swaggerVersion}")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

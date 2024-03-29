@@ -17,11 +17,17 @@ class AccountDao {
     private val accountStore: ConcurrentHashMap<Long, AccountModel> = ConcurrentHashMap()
 
     fun createAccount(request: CreateAccountRequest) {
-        val result = accountStore.putIfAbsent(request.accountNumber,
-                AccountModel(accountNumber = request.accountNumber, accountHolderName = request.accountHolderName, balance = 0))
-        if (result != null) {
-            logger.error("Account already exists with account number: {}", request.accountNumber)
-            throw BusinessException("Failed to create account", ErrorCode.TRANSACTION_001)
+        validateRequest(request)
+        accountStore[request.accountNumber] =
+            AccountModel(accountNumber = request.accountNumber, accountHolderName = request.accountHolderName, balance = 0)
+    }
+
+    private fun validateRequest(request: CreateAccountRequest) {
+        accountStore[request.accountNumber]?.let {
+            if (!it.deleted) {
+                logger.error("Account already exists with account number: {}", request.accountNumber)
+                throw BusinessException("Failed to create account", ErrorCode.TRANSACTION_001)
+            }
         }
     }
 

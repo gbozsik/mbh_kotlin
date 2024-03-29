@@ -7,5 +7,6 @@ enum class ErrorCode(val description: String) {
     TRANSACTION_004("Account not found"),
     TRANSACTION_005("Transaction creation failed"),
     TRANSACTION_006("Could not parse TransactionType"),
-    TRANSACTION_007("Unexpected error")
+    TRANSACTION_007("Unexpected error"),
+    TRANSACTION_008("Account not validated")
 }

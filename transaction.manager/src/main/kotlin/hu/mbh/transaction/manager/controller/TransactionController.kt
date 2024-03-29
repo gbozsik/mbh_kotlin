@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/transaction")
+@RequestMapping("/transactions")
 class TransactionController(val transactionService: TransactionService) {
 
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
@@ -27,7 +27,7 @@ class TransactionController(val transactionService: TransactionService) {
     }
 
     @GetMapping
-    fun getTransactions(): List<TransactionResponse> {
-        return transactionService.getAllTransactions()
+    fun getTransactions(): ResponseEntity<List<TransactionResponse>> {
+        return ResponseEntity(transactionService.getAllTransactions(), HttpStatus.OK)
     }
 }
