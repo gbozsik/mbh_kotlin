@@ -19,7 +19,7 @@ class AccountDao {
     fun createAccount(request: CreateAccountRequest) {
         validateRequest(request)
         accountStore[request.accountNumber] =
-            AccountModel(accountNumber = request.accountNumber, accountHolderName = request.accountHolderName, balance = 0)
+            AccountModel(accountNumber = request.accountNumber, accountHolderName = request.accountHolderName)
     }
 
     private fun validateRequest(request: CreateAccountRequest) {
@@ -42,7 +42,7 @@ class AccountDao {
         accountStore[accountModel.accountNumber] = accountModel
     }
 
-    fun getAllAccount(): MutableCollection<AccountModel> {
-        return accountStore.values
+    fun getAllAccount(): List<AccountModel> {
+        return accountStore.values.toList()
     }
 }

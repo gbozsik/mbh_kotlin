@@ -11,5 +11,10 @@ When creating account it calls the background-security-check service asynchronou
 using coroutine.
 
 ### Database
-* The DB is simulated with a ConcurrentHashMap, so it works more like a NoSql DB.
-* There is two store or "table" for the accounts and for the transaction
+* The DB is simulated with a ConcurrentHashMap.
+  * So it works more like a NoSql DB or a cache, since there is a key value pair, and it can be queried only by the key or let's say id.
+* There is two store or "table". One for the accounts and the other for the transactions
+
+### Exception handling
+Exceptions are handled in the GlobalExceptionHandler class, via @ControllerAdvice annotation provided by Spring.
+In case of errors it responds only error codes because of security reasons.

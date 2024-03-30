@@ -24,10 +24,10 @@ class AccountService(
     fun createAccount(request: CreateAccountRequest) {
         logger.info("Creating account with account number: {}", request.accountNumber)
         accountDao.createAccount(request)
-        callSecurityCehckServiceAsync(request)
+        callSecurityCheckServiceAsync(request)
     }
 
-    private fun callSecurityCehckServiceAsync(request: CreateAccountRequest) {
+    private fun callSecurityCheckServiceAsync(request: CreateAccountRequest) {
         GlobalScope.launch {
             securityCheckClient.callSecurityCheckClient(
                 SecurityCheckRequest(request.accountNumber, request.accountHolderName, securityCheckCallbackUrl)
@@ -62,8 +62,7 @@ class AccountService(
 
     fun getAccount(accountNumber: Long): AccountResponse? {
         return accountDao.getAccount(accountNumber)?.let {
-            return if (!it.deleted) AccountResponse(it.accountNumber, it.accountHolderName, it.balance, it.validated)
-            else null
+            AccountResponse(it.accountNumber, it.accountHolderName, it.balance, it.validated)
         } ?: let {
             logger.error(ErrorCode.TRANSACTION_004.description)
             throw BusinessException("Error occurred during get account", ErrorCode.TRANSACTION_004, HttpStatus.NOT_FOUND)
